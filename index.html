@@ -53,6 +53,9 @@
         <li class="nav-item">
           <a class="nav-link" href="#reproducibility" style="margin-top: 8px; font-size: 1.2em;">Reproducibility</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#demo" style="margin-top: 8px; font-size: 1.2em;">Demo</a>
+        </li>
     </div>
   </nav>
 
@@ -61,21 +64,29 @@
   <div class="jumbotron" style="padding: 1.5em 1.5em; font-size: larger">
     <h1 style="font-variant: small-caps; display: inline;">Freyja</h1><h2 style="display: inline;">: Scalable Data Discovery Using Profiles</h2>
     <p class="text-justify">
-      <span style="font-variant: small-caps;">Freyja</span> is a system that supports data discovery over data lakes (i.e., large scale heterogeneous data repositories). This website is a companion of the research papers revolving around this project.
+      <b style="font-variant: small-caps;">Freyja</b> is a system that supports <b>data discovery over data lakes</b> (i.e., large scale heterogeneous data repositories). This website is a companion of the research papers revolving around this project.
     </p>
     <p class="text-justify">
-      <span style="font-variant: small-caps;">Freyja</span>'s novelty lies on a learning-based approach to data discovery relying on dataset profiles. These are succinct representations that capture the underlying characteristics of the schemata and data values of datasets, which can be efficiently extracted in a parallel fashion. Profiles are then compared, to predict the quality of a join operation among a pair of attributes from different datasets. With this scores, we can elaborate rankings and present a list of the best candidates to perform a join with.
+      <span style="font-variant: small-caps;">Freyja</span>'s novelty lies on a learning-based approach to data discovery relying on <b>dataset profiles</b>. These are succinct representations that capture the underlying characteristics of the schemata and data values of datasets, which can be efficiently extracted in a parallel fashion. Profiles are then compared, to predict the quality of a join operation among a pair of attributes from different datasets. With this scores, we can elaborate rankings and present a list of the best candidates to perform a join with.
+    </p>
+    <p class="text-justify">
+      <b>Key Contributions:</b>
+      <ul>
+        <li class="text-justify"><b>Innovative Join Quality Metric</b>: <span style="font-variant: small-caps;">Freyja</span> proposes a new metric for assessing the quality of potential joins, focusing on syntactic measurements. This approach achieves accuracy comparable to advanced table representation learning (TRL) techniques but at a significantly reduced computational cost.</li>
+        <li class="text-justify"><b>Scalable Predictive Model</b>: To compute this join quality metric efficiently, <span style="font-variant: small-caps;">Freyja</span> employs a general-purpose predictive model trained on data profiles. These profiles are succinct representations capturing the underlying characteristics of datasets, enabling scalable join discovery without the need for large-scale datasets.</li>
+        <li class="text-justify"><b>Empirical Validation</b>: Experiments demonstrate that <span style="font-variant: small-caps;">Freyja</span> matches the performance of state-of-the-art methods while reducing execution times by several orders of magnitude, making it a practical solution for real-world applications.</li>
+      </ul>
     </p>
   </div>
 
-
+  <hr>
   <div class="bs-docs-section" id="people">
     <h2>People</h2>
 
     <div class="members-group">
       <ul class="list-unstyled members-list">
         <li class="member-item">
-          <a href="#">
+          <a target="_blank" href="https://dtim.upc.edu/en/team/marc-maynou">
             <div class="member member--card">
               <div class="member-section member__photo">
                 <img src="https://res.cloudinary.com/dwjuivck7/image/upload/v1722334812/Fotografia_Marc_Maynou_bsfjcq.png" width="180" height="180">
@@ -123,13 +134,25 @@
           </a>
         </li>        
         <li class="member-item">
-          <a target="_blank" href="http://www.essi.upc.edu/~oromero">
+          <a target="_blank" href="https://dtim.upc.edu/en/team/oscar-romero">
             <div class="member member--card">
               <div class="member-section member__photo">
                 <img src="https://res.cloudinary.com/dfg89e6oo/image/upload/c_thumb,f_auto,g_faces,h_360,w_360/v1445439382/gn7i1ne5vcfelalfdadh.jpg" width="180" height="180">
               </div>
               <div class="member-section member__info">
                 <h5 style="text-align:center" class="member__title">Oscar Romero</h5>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="member-item">
+          <a target="_blank" href="https://dtim.upc.edu/en/team/anna-queralt">
+            <div class="member member--card">
+              <div class="member-section member__photo">
+                <img src="https://futur.upc.edu/images/items/items-8008267713040209547.jpg" width="180" height="180">
+              </div>
+              <div class="member-section member__info">
+                <h5 style="text-align:center" class="member__title">Anna Queralt</h5>
               </div>
             </div>
           </a>
@@ -142,12 +165,54 @@
   <div class="bs-docs-section" id="publications">
     <h2>Publications</h2>
     <br>
+    <h5>2025</h5>
+    <br>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          Supporting data discovery tasks at scale with <span style="font-variant: small-caps; font-size: 1.2em;">Freyja</span> <span class="badge badge-primary"> Demo paper published in EDBT 2025</span>
+        </div>
+        <div>
+          <a href="https://www.openproceedings.org/2025/conf/edbt/paper-321.pdf"><i class="far fa-file-pdf fa-2x"></i></a>
+          <a href="https://upcommons.upc.edu/bitstreams/f1575fdd-0259-4994-9b9e-ae893805c321/download"><i class="fas fa-info-circle fa-2x"></i></a>
+        </div>
+      </li>
+    </ul>
+    <br>
+    <h5>2024</h5>
+    <br>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          Discovery of semantic non-syntactic joins <span class="badge badge-primary"> Short paper published in EDBT 2024</span>
+        </div>
+        <div>
+          <a href="https://ceur-ws.org/Vol-3653/short3.pdf"><i class="far fa-file-pdf fa-2x"></i></a>
+          <a href="https://www.recercat.cat/handle/2117/409838"><i class="fas fa-info-circle fa-2x"></i></a>
+        </div>
+      </li>
+    </ul>
+    <br>
+    <h5>2023</h5>
+    <br>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          Data discovery through profile-based similarity metrics <span class="badge badge-primary"> Master thesis</span>
+        </div>
+        <div>
+          <a href="https://upcommons.upc.edu/bitstream/handle/2117/396651/178567.pdf?sequence=2"><i class="far fa-file-pdf fa-2x"></i></a>
+          <a href="https://upcommons.upc.edu/entities/publication/69c880ca-cd4a-476c-9b3a-552bf2bc563c"><i class="fas fa-info-circle fa-2x"></i></a>
+        </div>
+      </li>
+    </ul>
+    <br>
     <h5>2021</h5>
     <br>
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <div>
-          Towards Scalable Data Discovery   <span class="badge badge-primary">Short paper published in EDBT 2021</span>
+          Towards Scalable Data Discovery <span class="badge badge-primary"> Short paper published in EDBT 2021</span>
         </div>
         <div>
           <a href="https://openproceedings.org/2021/conf/edbt/p61.pdf"><i class="far fa-file-pdf fa-2x"></i></a>
@@ -157,7 +222,7 @@
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <div>
-          Effective and scalable data discovery with NextiaJD <span class="badge badge-primary">Demo paper published in EDBT 2021</span>
+          Effective and scalable data discovery with NextiaJD <span class="badge badge-primary"> Demo paper published in EDBT 2021</span>
         </div>
         <div>
           <a href="https://openproceedings.org/2021/conf/edbt/p184.pdf"><i class="far fa-file-pdf fa-2x"></i></a>
@@ -188,48 +253,137 @@
     <h2>Resources</h2>
     <h5>Software repository</h5>
       <p class="text-justify">
-        The source code of the system can be found in the following <a target="_blank" href="https://github.com/dtim-upc/FREYJA">Github repository</a>
-      </p>
-      <p class="text-justify">
-        The repository contains a README file with all the necessary instructions to run the system.
+        The source code of the system can be found in the following <a target="_blank" href="https://github.com/dtim-upc/FREYJA">Github repository</a>. This repository contains:
+        <ul>
+          <li>The base code for <span style="font-variant: small-caps;">Freyja</span>. This includes a lightweight predictive model and testing scripts.</li>
+          <li><a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/ground_truths">Ground truths</a> employed for all the tested benchmarks. Some of these are samples of the original, large-scale benchmarks.</li>
+          <li><a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/notebooks">Notebooks</a> with the experimental development and validation of our approach.</li>
+          <li>Implementation, and documentation, for two systems that we compared ourselves to, but were not openly available: <a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/deepjoin">DeepJoin</a> and <a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/warpgate">WarpGate</a></li>
+        </ul>
       </p>
 
-    <h5>Ground truth </h5>
+    <h5><span style="font-variant: small-caps;">Freyja</span>'s benchmark</h5>
       <p class="text-justify">
-        To develop the predictive model employed in <span style="font-variant: small-caps;">Freyja</span> we curated our own data lake, collecting 160 datasets from open repositories
-        such as <a href="https://www.kaggle.com/" target="_blank">Kaggle</a> and <a href="https://www.openml.org/" target="_blank">OpenML</a>, whose domains varied amply. This search yielded a total of 110,378 candidate pairs of textual attributes, which we filtered by their degree of intersection to define potential join candidates. The resulting 4,318 joins were, then, manually labeled as either semantic or syntactic. The benchmark can be downloaded from <a target="_blank" href="https://mydisk.cs.upc.edu/s/QHJbKcyeacxq35f">here</a>.
+        To develop the predictive model employed in <span style="font-variant: small-caps;">Freyja</span> we <b>curated a data lake</b>, collecting 160 datasets from open repositories
+        such as <a href="https://www.kaggle.com/" target="_blank">Kaggle</a> and <a href="https://www.openml.org/" target="_blank">OpenML</a>, whose domains varied amply. This search yielded a total of 110,378 candidate pairs of textual attributes, which we filtered by their degree of intersection to define potential join candidates. The resulting 4,318 joins were, then, manually labeled as either semantic or syntactic. 
+      </p>
+      <p>
+        The benchmark can be downloaded from <a target="_blank" href="https://mydisk.cs.upc.edu/s/QHJbKcyeacxq35f">here</a>.
+      </p>
+    <h5>Other assets </h5>
+      <p class="text-justify">
+        For the sake of reproducibility, we provide <b>all the additional artifacts</b> that were generated during the development and testing of the approach. These are mainly used in the experimentations showcased by the <a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/notebooks">Notebooks</a>. This includes:
+        <ul>
+          <li>Intermediate results and datasets obtained from the development of the new join discovery metric for data lakes.</li>
+          <li>Discarded models with varying subsets of metrics employed.</li>
+          <li>Additional ground truth variants.</li>
+        </ul> 
+      </p>
+      <p>
+        This data can be downloaded from <a target="_blank" href="https://mydisk.cs.upc.edu/s/Scq7TmwPn7Q5q6X">here</a>.
       </p>
   </div>
   <hr>
   <div class="bs-docs-section" id="reproducibility">
     <h2>Reproducibility</h2>
     <p class="text-justify">
-      We believe in transparent and shareable research <a target="_blank" href="https://www.acm.org/publications/reproducibility">[1]</a>, <a target="_blank" href="http://db-reproducibility.seas.harvard.edu/">[2]</a>. 
+      We believe in transparent and shareable research <a target="_blank" href="https://www.acm.org/publications/reproducibility">[1]</a>, <a target="_blank" href="http://db-reproducibility.seas.harvard.edu/">[2]</a>. <b>Reproducing the results</b> described in the paper can be done by following the instructions provided in the Github repository, indicating the desired data lake to test. We have included the specific <a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/model/evaluate_benchmark_performance.py">script</a> used to obtain the P@K and R@K results displayed in the paper.
     </p>
+    <h5>Benchmarks, baselines and ground truths</h5>
     <p class="text-justify">
-      Reproducing the results described in the paper can be done by following the instructions provided in the Github repository, indicating the desired data lake to test. Next we include references to the original papers in which the employed benchmars were presented:
+       We used a total of <b>7 benchmarks</b>, all to test efficiency (i.e. preprocessing and query speed, alongside the overall capacity to scale) and 6 of these to test effectiveness (i.e. quality of the reankings generated). One of these benchmarks was designed by our team and used to train <span style="font-variant: small-caps;">Freyja</span>'s model. Next, we include references to the original papers and repositories of the remaining 6 benchmarks:
     </p>
-    <ul>
-      <li>SANTOS: Relationship-based Semantic Table Union Search [<a target="_blank" href="https://dl.acm.org/doi/abs/10.1145/3588689">paper</a>], [<a target="_blank" href="https://github.com/northeastern-datalab/santos">github</a>]</li>
-      <li>Table Union Search on Open Data (TUS) [<a target="_blank" href="https://www.vldb.org/pvldb/vol11/p813-nargesian.pdf">paper</a>], [<a target="_blank" href="https://github.com/RJMillerLab/table-union-search-benchmark">github</a>]</li>
+    <ul class="text-justify">
+      <li>SANTOS: Relationship-based Semantic Table Union Search [<a target="_blank" href="https://dl.acm.org/doi/abs/10.1145/3588689">paper</a>], [<a target="_blank" href="https://github.com/northeastern-datalab/santos">github</a>]. We use both the Small and Big variants.</li>
+      <li>Table Union Search on Open Data (TUS) [<a target="_blank" href="https://www.vldb.org/pvldb/vol11/p813-nargesian.pdf">paper</a>], [<a target="_blank" href="https://github.com/RJMillerLab/table-union-search-benchmark">github</a>]. We use both the Small and Big variants.</li>
       <li>Dataset Discovery in Data Lakes (D3L) [<a target="_blank" href="https://arxiv.org/pdf/2011.10427">paper</a>], [<a target="_blank" href="https://github.com/alex-bogatu/d3l">github</a>]</li>
+      <li>OmniMatch: Joinability Discovery in Data Products [<a target="_blank" href="https://www.vldb.org/pvldb/vol18/p4588-koutras.pdf">paper</a>], [<a target="_blank" href="https://github.com/amazon-science/omnimatch">github</a>]. We use both variants: Culture Recreation and City Government</li>
     </ul>
     <p class="text-justify">
-      To further facilitate the task, we also provide the ground truths employed to evaluate the model for the four external benchmarks, two of them being samples of the original (and exceedingly big) ground truhts. To develope these ground truths we have removed unnecessary columns from the original version and unified the header names in order to streamline the execution of some of the processes.
+      Each of these benchmarks (except for SANTOS Big, hence it is only used to test effectiveness) has a ground truth. That is, for a series of query columns that we want to find joins for, the ground truth simply indicates which candidate columns should be found. The difference between the ideal set of candidates and the real joins found by systems derives on the respective P@K and R@K scores.
+    </p>
+    <p class="text-justify">
+      To further facilitate the reproduction of our results, we <b>provide all the</b> <a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/ground_truths">ground truths</a> employed to evaluate the benchmarks. The D3L and TUS Big ground truths were exceedingly big, so we  removed unnecessary columns from the original version. Both OmniMatch ground truths were not adapted for our evaluation method, so we reestructured them and selected a big enough subset. In all cases, we unified the header names in order to streamline the execution of some of the processes.
+    </p>
+    <p class="text-justify">
+      Out of the four previous systems, we also employ three of them as baselines to test the validity of <span style="font-variant: small-caps;">Freyja:</span> D3L, SANTOS and OmniMatch. To that, we included two more open-source systems:
+      <ul>
+        <li>KGLiDS: A Platform for Semantic Abstraction, Linking, and Automation of Data Science [<a target="_blank" href="https://arxiv.org/pdf/2303.02204">paper</a>], [<a target="_blank" href="https://github.com/CoDS-GCS/kglids">github</a>]. </li>
+        <li>Semantics-aware Dataset Discovery from Data Lakes with Contextualized Column-based Representation Learning (Starmie) [<a target="_blank" href="https://www.vldb.org/pvldb/vol16/p1726-fan.pdf">paper</a>], [<a target="_blank" href="https://github.com/megagonlabs/starmie">github</a>].</li>
+      </ul>
+    </p>
+    <p class="text-justify">
+      Finally, to round up the comparative, we wanted to include two fully-embedding-based approaches: 
+      <ul>
+        <li>DeepJoin: Joinable Table Discovery with Pre-trained Language Models [<a target="_blank" href="https://www.vldb.org/pvldb/vol16/p2458-dong.pdf">paper</a>].</li>
+        <li>WarpGate: A Semantic Join Discovery System for Cloud Data Warehouses [<a target="_blank" href="https://mail.vldb.org/cidrdb/papers/2023/p75-cong.pdf">paper</a>].</li>
+      </ul>
+    </p>
+    <p class="text-justify">
+      Unfortunately, these tools do not have open implementations available. Hence, we were forced to develop our own iterations of the systems, leveraging the information provided in the respective papers and, in the case of DeepJoin, directly employing a set of instructions kidly provided by the authors. <b>These implementations can be found</b> in <span style="font-variant: small-caps;">Freyja</span>'s' repository (<a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/deepjoin">DeepJoin</a>, <a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/warpgate">WarpGate</a>), with a easy-to-use implementation and extensive documentation with installation guidelines and execution instructions.
+    </p>
+    <h5><span style="font-variant: small-caps;">Freyja</span>'s development</h5>
+    <p class="text-justify">
+      In the repository we present fours notebooks that illustrate the development of the project. All the datasets and artifacts referenced in these notebooks can be found <a target="_blank" href="https://mydisk.cs.upc.edu/s/Scq7TmwPn7Q5q6X">here</a> (same link as in the 'Other assets' section).
+    </p>
+    <h6><a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/join_quality_measure.ipynb">Join quality measure</a></h6>
+    <p class="text-justify">
+      Here we focus on developing a <b>novel join quality measure</b> specifically for <b>data lakes</b>, which combines a syntactic set overlap computation (mutliset Jaccard, MJ) and a cardinality proportion (K) to lightly indicate semantic relatedness:
+        <ul class="text-justify">
+          <li> First, we define functions to compute all the necessary metrics (multiset Jaccard, Jaccard, containment and the cardinality proportion). This will allows us to compare the basic set-overlap metrics and discern which is best (and later combine them with the cardinality proportion).</li>
+          <li> We conduct a series of initial experiments that showcase that <b>multiset Jaccard is better suited for joinability detection</b> than both containment and Jaccard, mainly by checking how well these metrics can separate semantic from syntactic joins. This is likely due to multiset Jaccard taking into consideration multisets in the evaluation of the set-similarity, which provides and advantage in denormalized scenarios, such as data lakes, were repated values are common. Nonetheless, the results are not good enough, so we need a way to improve them.</li>
+          <li> We move to testing the <b>relevance of the cardinality proportion</b> for the task of join detection in data lakes. What we observe is that the proportion of K for syntactic and semantic joins varies considerably, why is an indicator that K can be used as a complimentary and lightweight assessment of join quality in the context of data lakes.</li>
+          <li> Once we have decided on the use of MJ and K, we have to create a conjoined metric that takes both measurements into account. The following blocks of code showcase how, first, we define a <b>discrete metric</b> that can separate the join space in proportional buckets and, thus, properly assign each join their quality level. Then, we indicate how to obtain the <b>continuous, final metric</b> by fitting the discrete metric to a continuous function, ensuring that the fitting minimizes the Wasserstein distance for both MJ and K (and also cross all values of L, the "buckets" defined by the discrete function).</li>
+          <li>Finally, to facilitate reproducibility we add a strictness measurement to the metric, which can alter its behavior to be more restrictive. Nonetheless, as we want to provide a single model to prevent cumbersome configuration for the user, we set with a single value of strictness to build the final model.</li>
+        </ul>
+    </p>
+    <h6><a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/models.ipynb">Models</a></h6>
+    <p class="text-justify">
+      This notebooks presents a long process of <b>defining and testing several models</b> before selecting one of them to be part of the final system. We define two base models: with and without syntactic metrics (i.e datatype-related metrics), as syntactic metrics are very costly and removing them would speed up the creation of profiles considerably. From both of these base variants we generate two more models each (for a total of 6 models): with/without feature selection and <b>with/without <i>deep</i> feature selection</b>. The former refers to simply removing irrelevant model features ad hoc via an embedded method, whereas the latter refers to a three-stage feature selection process encompassing several filter, embedded and wrapper methodologies. 
     </p>
     <p>
-      Additionally, in the repository we showcase two notebooks that illustrate the development of the project.
+      These models are instantiated with up to <b>17 base regressors</b>. We test all the possible combinations with our benchmark, selecting a subset of the best 20 models based on a conjoined analysis over RMSE, MAE and MedAE scores. This subset of models is tested on all the remaining benchmarks, in order to ensure that we have not commited a mistake and some of the underperforming models in the creation stage then outperforms the others when generalizing to other benchmarks. The results, however, are clear, and the <b>Gradient Boosting regressor, with no syntactic features and with a <i>deep</i> feature selection</b> process is the model that clearly performs best, both in our benchmark as well as the other's.
     </p>
-    <ul>
-      <li>Join Quality Measure: first, we study of the relationship between semantic and syntatic joins in the defined ground truth, employing several join assessment metrics to separate the two typologies. Then, we define the metodology to generate our join quality metric, born from the linial combination of Multiset Jaccard and the cardinality proportion. Finally, we test the improvements of applying such a measurement.</li>
-      <li>Join Quality Measure: we develop the predictive model to be used to approximate the quality metric. To do so, we explore several base predictors with different hyperparameter configurations. Moreover, we define four different models, with a varying number of profile features. We evaluate each of these models in all the benchmarks.</li>
-    </ul>
+    <h6><a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/plots_and_statistical_analyses.ipynb">Plots and statistical analyses</a></h6>
+    <p class="text-justify">
+      Here we attach all the <b>results</b> obtained throughout the development of <span style="font-variant: small-caps;">Freyja</span>. This encompasses two main areas:
+      <ul>
+        <li class="text-justify"><b>Experimentation results</b>. Related to effectiveness, we include specific scores for <b>P@K and R@K</b> for all systems on all benchmarks and for all the tested values of K (we also include MAP@K, which is not reported in the paper). As for efficiency, we include specific <b>preprocessing and execution times</b> for all systems on all benchmarks, including our synthetic variants to tests scalability. All of these results are plotted for easier visualization</li>
+        <li class="text-justify"><b>Statistical analysis</b>. In order to guarantee the statistical rigor of our results, we conducted thorough significance testing  following the Null Hypoth-esis Significance Testing (NHST) framework.
+          <ul>
+            <li class="text-justify"><b>Efficiency analysis</b>. Statistical analysis of preprocessing times was not feasible due to the prohibitively high computational costs of repeatedly executing the preparation stage for competing systems, which can take hours or even days per benchmark (the substantial differences reported provide clear evidence of <span style="font-variant: small-caps;">Freyja</span>’s efficiency advantages). For query execution time, we performed N = 30 independent runs for each system-benchmark pair and applied <b>one-way ANOVA</b> tests, which rejected the null hypothesis of equal means across all benchmarks (p < 0.0001). <b>Tukey’s HSD post-hoc</b> tests demonstrated that differences between <span style="font-variant: small-caps;">Freyja</span> and SANTOS/D3L are highly significant (p < 0.0001), while differences with embedding-based systems (DeepJoin, KGLiDS, WarpGate) were not statistically significant. All query times in Table IV are reported with 95% confidence intervals.</li>
+            <li class="text-justify"><b>Effectiveness analysis</b>. For effectiveness metrics (P@k and R@k), we employed the <b>Wilcoxon signed-rank</b> test, a non-parametric alternative to paired t-tests suitable for bounded metrics that may not follow normal distributions. These tests were conducted across query columns for each benchmark. The results confirmed that performance differences between <span style="font-variant: small-caps;">Freyja</span> and competing systems are statistically significant across nearly all benchmarks (<span style="font-variant: small-caps;">Freyja</span>, D3L, TUS Small, TUS Large, OMCG, OMCR). Notable exceptions where differences were not significant include initial ranking positions (k = 1, 2) in SANTOS Small when compared against Starmie, WarpGate, KGLiDS, and DeepJoin, and k = 1 in TUS Large against DeepJoin (Precision) and Starmie (Recall). These results validate that the variation in effectiveness scores reflects genuine differences in system performance rather than random execution factors.</li>
+            <li class="text-justify"><b>Multiple comparisons control</b>. Given that our evaluation involved 804 statistical tests across multiple benchmarks, metrics, and system comparisons, we addressed the inflated risk of Type I errors (false positives) by applying the <b>Benjamini-Hochberg (B-H) procedure</b> to control the False Discovery Rate (FDR). With an FDR level of Q = 0.05, the resulting significance cutoff was determined to be p ≤ 0.0455. After B-H correction, 765 tests (95.15% of all tests) remained statistically significant, confirming that the expected proportion of false discoveries among our significant results is controlled at or below 5%. This validation strengthens the robustness of our experimental conclusions and demonstrates that <span style="font-variant: small-caps;">Freyja</span>’s performance advantages are not artifacts of random variation but reflect genuine improvements over state-of-the-art approaches.</li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+    <h6><a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/k_justification.ipynb">Justifying K</a></h6>
+    <p class="text-justify">
+      This notebook mainly implements a experiment to <b>further highlight the relevance of K</b> in our overall methodology. This consists on exploring the capacity of K for separating semantic joins from syntactic joins in benchmarks other than <span style="font-variant: small-caps;">Freyja</span>'s (this is showcased in the first notebook). The main issue is that other benchmarks do not have provide this semantic-syntactic differentiation, so we had to create such a distinction. Semantic joins were extracted from the ground truths of the benchmarks (as we assume that these joins share semantic relatedness), whereas syntactic joins were obtained by finding pairs of columns from the benchmarks that had a containment value > 0.3 (which was the criteria employed in <span style="font-variant: small-caps;">Freyja</span>'s benchmark). We collected a total of 2,000 semantic joins and 2,000 semantic joins from the SANTOS Small, TUS Small and D3L benchmarks. 
+    </p>
+    <p class="text-justify">
+      The results show the <b>same trend as in <span style="font-variant: small-caps;">Freyja</span></b>: semantic joins present high values of K, whereas syntactic joins present low values of K, further strengthening the hypotesis that the cardinality proportion can be employed as a lightweight semantic notion regardless of the underlying datalake. The distribution of these K values varies across benchmarks, but there is always a clear distinction between semantic and syntactic joins. For example, in the TUS Small benchmark, syntactic joins present a more spread distribution of K values, but 95% semantic joins have K > 0.6 and over 50% K > 0.98. On the other hand, in the D3L benchmark semantic joins' K values can range from 0.3 to 0.9 for 95% of the instances, but 75% of syntactic joins have K < 0.25.
+    </p>
   </div>
   <hr>
-
-
-  <hr>
-  <p>Last update: 2024/07/30 by Marc Maynou
+  <h2>Demo</h2>
+    <p>
+      The following video showcases a demo of <span style="font-variant: small-caps;">Freyja</span>, executed from a Python notebook. The video defines a use case and goes through all the necessary stages to perform join discovery, integrating the process inside a data augmentation pipeline.
+    </p>
+    <center>
+      <iframe 
+          width="800" 
+          height="450" 
+          src="https://www.youtube.com/embed/_N0Uk-y0cDs" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen>
+      </iframe>
+    </center>
+  <br><br>
+  <p>Last update: 2025/10/13 by Marc Maynou
 </div>
 <script>
 $(document).ready(function() {

@@ -3197,13 +3197,16 @@ nav:after {
 	margin-bottom: 10px;
 }
 .member-section {
-	padding: 1em;
+	padding: 0.5em;
 }
 .member__photo img {
-	border-radius: 50%;
-	display: inline-block;
-	height: auto;
-	max-width: 100%}
+  width: 150px;
+  height: 180px;
+  object-fit: cover;     /* crops image to fill the square without distortion */
+  border-radius: 50%;    /* keeps it circular */
+  display: block;
+  margin: 0 auto;        /* centers it inside the card */
+}
 .member__title {
 	margin: 0;
 }
@@ -3257,6 +3260,9 @@ nav:after {
 	margin-top: 2em;
 	margin-left: auto;
     margin-right: auto;
+}
+.member.member--card {
+  	min-width: 90px; /* adjust as needed */
 }
 .member.member--card .member__accounts {
 	margin-top: 1em;
@@ -5734,4 +5740,6 @@ body.sitesection-showbag .site-footer {
 	border: none;
 }
 
-
+:target {
+  scroll-margin-top: 100px; /* Adjust this value to match your navbar height */
+}
