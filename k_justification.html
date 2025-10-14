@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Freyja - Justifying K</title>
+
+  <link rel="stylesheet" href="freyja.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/92dab46df1.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html"><span style="font-variant: small-caps; font-size: 1.5em;">Freyja</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html#people" style="margin-top: 8px; font-size: 1.2em;">People</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#publications" style="margin-top: 8px; font-size: 1.2em;">Publications</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#resources" style="margin-top: 8px; font-size: 1.2em;">Resources</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#reproducibility" style="margin-top: 8px; font-size: 1.2em;">Reproducibility</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#demo" style="margin-top: 8px; font-size: 1.2em;">Demo</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <br>
+
+  <h2 style="text-align: center;">K-Value Justification: Distinguishing Semantic from Syntactic Joins</h2>
+
+  <p style="font-size: 0.9em; color: grey;">
+    Link to <a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/k_justification.ipynb">notebook</a>. The notebook includes all the necessary code to create the data that we need and generate the plots. Nonetheless, an iteration of this data is already contained <a target="_blank" href="https://mydisk.cs.upc.edu/s/Scq7TmwPn7Q5q6X">here</a>, under the <i>k_justification</i> folder.
+  </p>
+
+  <p class="text-justify">
+    This experiment aims to <strong>highlight the relevance of (K)</strong> by exploring its capacity to separate semantic joins from syntactic joins across various benchmarks, including D3L, Santos Small, and TUS Small. Since these benchmarks do not provide explicit semantic/syntactic labels, we constructed the evaluation sets as follows:
+    For semantic joins, we sampled 2,000 ground-truth matches (i.e. pairs of query and candidate columns resulting in sensible joins), assuming they share semantic relatedness.
+    For syntactic joins, we sampled 2,000 random column pairs from the data lake with containment > 0.3, matching the criteria employed in the <span style="font-variant: small-caps;">Freyja</span> benchmark.
+  </p>
+
+  <p class="text-justify">
+    It is evident that <strong>semantic joins generally exhibit higher (K) values</strong>. Conversely, syntactic joins display very low (K) values, with the median close to K = 0. This aligns precisely with our design goal for K: to act as a high-level filtering tool that complements traditional intersection metrics and provides a more nuanced assessment of joinability, strengthening the hypothesis that the cardinality proportion can be employed as a lightweight semantic notion regardless of the underlying datalake.
+  </p>
+
+  <p class="text-justify">
+    The specific results are depicted below.
+  </p>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 30px auto; max-width: 1200px;">
+
+    <div style="text-align: center;">
+      <img src="img/violins/violin_freyja.png" alt="Boxplot and Violin plot for K distribution on the Freyja benchmark" style="width: 100%; height: auto;">
+      <p style="font-size: 0.9em; margin-top: 5px;">
+        <strong>Figure 1.</strong> Boxplot and Violin plot for \(K\) distribution on the <span style="font-variant: small-caps;">Freyja</span> benchmark
+      </p>
+    </div>
+
+    <div style="text-align: center;">
+      <img src="img/violins/violin_d3l.png" alt="Boxplot and Violin plot for K distribution on the D3L benchmark" style="width: 100%; height: auto;">
+      <p style="font-size: 0.9em; margin-top: 5px;">
+        <strong>Figure 2.</strong> Boxplot and Violin plot for \(K\) distribution on the D3L benchmark
+      </p>
+    </div>
+
+    <div style="text-align: center;">
+      <img src="img/violins/violin_santos_small.png" alt="Boxplot and Violin plot for K distribution on the SANTOS Small benchmark" style="width: 100%; height: auto;">
+      <p style="font-size: 0.9em; margin-top: 5px;">
+        <strong>Figure 3.</strong> Boxplot and Violin plot for \(K\) distribution on the SANTOS Small benchmark
+      </p>
+    </div>
+
+    <div style="text-align: center;">
+      <img src="img/violins/violin_tus_small.png" alt="Boxplot and Violin plot for K distribution on the TUS Small benchmark" style="width: 100%; height: auto;">
+      <p style="font-size: 0.9em; margin-top: 5px;">
+        <strong>Figure 4.</strong> Boxplot and Violin plot for \(K\) distribution on the TUS Small benchmark
+      </p>
+    </div>
+
+  </div>
+
+  <p class="text-justify">
+    Importantly, both our benchmark (<span style="font-variant: small-caps;">Freyja</span>'s) and D3L's are non-synthetic, while Santos Small and TUS Small are synthetic. The distribution of K values varies across benchmarks, but there is always a clear distinction: across non-synthetic datasets, D3L results closely mirror the patterns observed in <span style="font-variant: small-caps;">Freyja</span>, where semantic joins tend to concentrate at higher K values. The same trend holds for synthetic benchmarks, though the distributions are more spread. For instance, in TUS Small, while syntactic joins are more evenly distributed, over 50% of semantic joins have K > 0.98. Conversely, in D3L, 75% of syntactic joins have K < 0.25. In all four datasets, the distinction between semantic and syntactic joins in terms of K is clear, reinforcing our earlier hypothesis.
+  </p>
+
+  <p><a href="index.html">&larr; Back to main page</a></p>
+
+  <p style="font-size: small; color: #888;">Last updated: 2025/10/14</p>
+</div>
+
+</body>
+</html>

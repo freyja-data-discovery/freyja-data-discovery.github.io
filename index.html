@@ -320,52 +320,24 @@
       </ul>
     </p>
     <p class="text-justify">
-      Unfortunately, these tools do not have open implementations available. Hence, we were forced to develop our own iterations of the systems, leveraging the information provided in the respective papers and, in the case of DeepJoin, directly employing a set of instructions kidly provided by the authors. <b>These implementations can be found</b> in <span style="font-variant: small-caps;">Freyja</span>'s' repository (<a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/deepjoin">DeepJoin</a>, <a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/warpgate">WarpGate</a>), with a easy-to-use implementation and extensive documentation with installation guidelines and execution instructions.
+      Unfortunately, these tools do not have open implementations available. Hence, we were forced to develop our own iterations of the systems, leveraging the information provided in the respective papers and, in the case of DeepJoin, directly employing a set of instructions kidly provided by the authors. <b>These implementations can be found</b> in <span style="font-variant: small-caps;">Freyja</span>'s' repository (<a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/deepjoin">DeepJoin</a>, <a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/warpgate">WarpGate</a>), with a easy-to-use implementation and extensive documentation with installation guidelines and execution instructions. Details about the implementation decisions can be found <a target="_blank" href="baseline_details.html">here</a>.
     </p>
     <h5><span style="font-variant: small-caps;">Freyja</span>'s development</h5>
     <p class="text-justify">
-      In the repository we present fours notebooks that illustrate the development of the project. All the datasets and artifacts referenced in these notebooks can be found <a target="_blank" href="https://mydisk.cs.upc.edu/s/Scq7TmwPn7Q5q6X">here</a> (same link as in the 'Other assets' section).
-    </p>
-    <h6><a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/join_quality_measure.ipynb">Join quality measure</a></h6>
-    <p class="text-justify">
-      Here we focus on developing a <b>novel join quality measure</b> specifically for <b>data lakes</b>, which combines a syntactic set overlap computation (mutliset Jaccard, MJ) and a cardinality proportion (K) to lightly indicate semantic relatedness:
-        <ul class="text-justify">
-          <li> First, we define functions to compute all the necessary metrics (multiset Jaccard, Jaccard, containment and the cardinality proportion). This will allows us to compare the basic set-overlap metrics and discern which is best (and later combine them with the cardinality proportion).</li>
-          <li> We conduct a series of initial experiments that showcase that <b>multiset Jaccard is better suited for joinability detection</b> than both containment and Jaccard, mainly by checking how well these metrics can separate semantic from syntactic joins. This is likely due to multiset Jaccard taking into consideration multisets in the evaluation of the set-similarity, which provides and advantage in denormalized scenarios, such as data lakes, were repated values are common. Nonetheless, the results are not good enough, so we need a way to improve them.</li>
-          <li> We move to testing the <b>relevance of the cardinality proportion</b> for the task of join detection in data lakes. What we observe is that the proportion of K for syntactic and semantic joins varies considerably, why is an indicator that K can be used as a complimentary and lightweight assessment of join quality in the context of data lakes.</li>
-          <li> Once we have decided on the use of MJ and K, we have to create a conjoined metric that takes both measurements into account. The following blocks of code showcase how, first, we define a <b>discrete metric</b> that can separate the join space in proportional buckets and, thus, properly assign each join their quality level. Then, we indicate how to obtain the <b>continuous, final metric</b> by fitting the discrete metric to a continuous function, ensuring that the fitting minimizes the Wasserstein distance for both MJ and K (and also cross all values of L, the "buckets" defined by the discrete function).</li>
-          <li>Finally, to facilitate reproducibility we add a strictness measurement to the metric, which can alter its behavior to be more restrictive. Nonetheless, as we want to provide a single model to prevent cumbersome configuration for the user, we set with a single value of strictness to build the final model.</li>
-        </ul>
-    </p>
-    <h6><a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/models.ipynb">Models</a></h6>
-    <p class="text-justify">
-      This notebooks presents a long process of <b>defining and testing several models</b> before selecting one of them to be part of the final system. We define two base models: with and without syntactic metrics (i.e datatype-related metrics), as syntactic metrics are very costly and removing them would speed up the creation of profiles considerably. From both of these base variants we generate two more models each (for a total of 6 models): with/without feature selection and <b>with/without <i>deep</i> feature selection</b>. The former refers to simply removing irrelevant model features ad hoc via an embedded method, whereas the latter refers to a three-stage feature selection process encompassing several filter, embedded and wrapper methodologies. 
+      In the repository we present fours notebooks that illustrate the development of the project. All the datasets and artifacts referenced in these notebooks can be found <a target="_blank" href="https://mydisk.cs.upc.edu/s/Scq7TmwPn7Q5q6X">here</a> (same link as in the 'Other assets' section). Next you can find links to pages that present the content of the notebooks without the code:
     </p>
     <p>
-      These models are instantiated with up to <b>17 base regressors</b>. We test all the possible combinations with our benchmark, selecting a subset of the best 20 models based on a conjoined analysis over RMSE, MAE and MedAE scores. This subset of models is tested on all the remaining benchmarks, in order to ensure that we have not commited a mistake and some of the underperforming models in the creation stage then outperforms the others when generalizing to other benchmarks. The results, however, are clear, and the <b>Gradient Boosting regressor, with no syntactic features and with a <i>deep</i> feature selection</b> process is the model that clearly performs best, both in our benchmark as well as the other's.
+      <a target="_blank" href="join_quality_measure.html">Join Quality metric</a>. Development of the join quality metric.
     </p>
-    <h6><a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/plots_and_statistical_analyses.ipynb">Plots and statistical analyses</a></h6>
-    <p class="text-justify">
-      Here we attach all the <b>results</b> obtained throughout the development of <span style="font-variant: small-caps;">Freyja</span>. This encompasses two main areas:
-      <ul>
-        <li class="text-justify"><b>Experimentation results</b>. Related to effectiveness, we include specific scores for <b>P@K and R@K</b> for all systems on all benchmarks and for all the tested values of K (we also include MAP@K, which is not reported in the paper). As for efficiency, we include specific <b>preprocessing and execution times</b> for all systems on all benchmarks, including our synthetic variants to tests scalability. All of these results are plotted for easier visualization</li>
-        <li class="text-justify"><b>Statistical analysis</b>. In order to guarantee the statistical rigor of our results, we conducted thorough significance testing  following the Null Hypoth-esis Significance Testing (NHST) framework.
-          <ul>
-            <li class="text-justify"><b>Efficiency analysis</b>. Statistical analysis of preprocessing times was not feasible due to the prohibitively high computational costs of repeatedly executing the preparation stage for competing systems, which can take hours or even days per benchmark (the substantial differences reported provide clear evidence of <span style="font-variant: small-caps;">Freyja</span>’s efficiency advantages). For query execution time, we performed N = 30 independent runs for each system-benchmark pair and applied <b>one-way ANOVA</b> tests, which rejected the null hypothesis of equal means across all benchmarks (p < 0.0001). <b>Tukey’s HSD post-hoc</b> tests demonstrated that differences between <span style="font-variant: small-caps;">Freyja</span> and SANTOS/D3L are highly significant (p < 0.0001), while differences with embedding-based systems (DeepJoin, KGLiDS, WarpGate) were not statistically significant. All query times in Table IV are reported with 95% confidence intervals.</li>
-            <li class="text-justify"><b>Effectiveness analysis</b>. For effectiveness metrics (P@k and R@k), we employed the <b>Wilcoxon signed-rank</b> test, a non-parametric alternative to paired t-tests suitable for bounded metrics that may not follow normal distributions. These tests were conducted across query columns for each benchmark. The results confirmed that performance differences between <span style="font-variant: small-caps;">Freyja</span> and competing systems are statistically significant across nearly all benchmarks (<span style="font-variant: small-caps;">Freyja</span>, D3L, TUS Small, TUS Large, OMCG, OMCR). Notable exceptions where differences were not significant include initial ranking positions (k = 1, 2) in SANTOS Small when compared against Starmie, WarpGate, KGLiDS, and DeepJoin, and k = 1 in TUS Large against DeepJoin (Precision) and Starmie (Recall). These results validate that the variation in effectiveness scores reflects genuine differences in system performance rather than random execution factors.</li>
-            <li class="text-justify"><b>Multiple comparisons control</b>. Given that our evaluation involved 804 statistical tests across multiple benchmarks, metrics, and system comparisons, we addressed the inflated risk of Type I errors (false positives) by applying the <b>Benjamini-Hochberg (B-H) procedure</b> to control the False Discovery Rate (FDR). With an FDR level of Q = 0.05, the resulting significance cutoff was determined to be p ≤ 0.0455. After B-H correction, 765 tests (95.15% of all tests) remained statistically significant, confirming that the expected proportion of false discoveries among our significant results is controlled at or below 5%. This validation strengthens the robustness of our experimental conclusions and demonstrates that <span style="font-variant: small-caps;">Freyja</span>’s performance advantages are not artifacts of random variation but reflect genuine improvements over state-of-the-art approaches.</li>
-          </ul>
-        </li>
-      </ul>
+    <p>
+      <a target="_blank" href="models.html">Models</a>. Steps undertaken to develop the final model.
     </p>
-    <h6><a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/k_justification.ipynb">Justifying K</a></h6>
-    <p class="text-justify">
-      This notebook mainly implements a experiment to <b>further highlight the relevance of K</b> in our overall methodology. This consists on exploring the capacity of K for separating semantic joins from syntactic joins in benchmarks other than <span style="font-variant: small-caps;">Freyja</span>'s (this is showcased in the first notebook). The main issue is that other benchmarks do not have provide this semantic-syntactic differentiation, so we had to create such a distinction. Semantic joins were extracted from the ground truths of the benchmarks (as we assume that these joins share semantic relatedness), whereas syntactic joins were obtained by finding pairs of columns from the benchmarks that had a containment value > 0.3 (which was the criteria employed in <span style="font-variant: small-caps;">Freyja</span>'s benchmark). We collected a total of 2,000 semantic joins and 2,000 semantic joins from the SANTOS Small, TUS Small and D3L benchmarks. 
+    <p>
+      <a target="_blank" href="plots_and_statistical_analyses.html">Plots and statistical analyses</a>. Executed for both the effectiveness and efficiency results.
     </p>
-    <p class="text-justify">
-      The results show the <b>same trend as in <span style="font-variant: small-caps;">Freyja</span></b>: semantic joins present high values of K, whereas syntactic joins present low values of K, further strengthening the hypotesis that the cardinality proportion can be employed as a lightweight semantic notion regardless of the underlying datalake. The distribution of these K values varies across benchmarks, but there is always a clear distinction between semantic and syntactic joins. For example, in the TUS Small benchmark, syntactic joins present a more spread distribution of K values, but 95% semantic joins have K > 0.6 and over 50% K > 0.98. On the other hand, in the D3L benchmark semantic joins' K values can range from 0.3 to 0.9 for 95% of the instances, but 75% of syntactic joins have K < 0.25.
+    <p>
+      <a target="_blank" href="k_justification.html">Justifying K</a>. Further prove of the validity of K as a lightweight semantic assessment tool.
     </p>
-  </div>
   <hr>
   <h2>Demo</h2>
     <p>
@@ -383,7 +355,7 @@
       </iframe>
     </center>
   <br><br>
-  <p>Last update: 2025/10/13 by Marc Maynou
+  <p style="font-size: small; color: #888;">Last updated: 2025/10/14</p>
 </div>
 <script>
 $(document).ready(function() {

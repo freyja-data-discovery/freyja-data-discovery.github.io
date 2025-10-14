@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Freyja - Baseline details</title>
+
+  <link rel="stylesheet" href="freyja.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/92dab46df1.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html"><span style="font-variant: small-caps; font-size: 1.5em;">Freyja</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html#people" style="margin-top: 8px; font-size: 1.2em;">People</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#publications" style="margin-top: 8px; font-size: 1.2em;">Publications</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#resources" style="margin-top: 8px; font-size: 1.2em;">Resources</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#reproducibility" style="margin-top: 8px; font-size: 1.2em;">Reproducibility</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#demo" style="margin-top: 8px; font-size: 1.2em;">Demo</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <br>
+
+  <h2 style="text-align: center;">Baselines details (DeepJoin & WarpGate)</h2>
+
+  <p style="font-size: 0.9em; color: grey;">
+    The implementations we developed for these two baselines can be found in <span style="font-variant: small-caps;">Freyja</span>'s Github repository (<a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/deepjoin">DeepJoin</a>, <a target="_blank" href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/warpgate">WarpGate</a>), with a easy-to-use implementation and extensive documentation with installation guidelines and execution instructions.
+  </p>
+
+  <h5>WarpGate</h5>
+  <p class="text-justify">
+    WarpGate's join disocvery mechanism is straightforward and can be divided into two main steps:
+    <ol>
+        <li> Embedding generation: Produce embeddings of the tables using models specifically designed for tabular data. </li>
+        <li> Indexing with LSH: Store these embeddings in a locality-sensitive hashing (LSH) index for efficient retrieval. </li>
+    </ol>
+    At query time, the index is traversed to select the closest elements to the query (i.e., those in the corresponding LSH bucket), and a similarity search is performed on this reduced subset of potential joins.
+
+    The original <a target="_blank" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiGiprrh6SQAxWbSaQEHQNoEiQQFnoECBoQAQ&url=https%3A%2F%2Fmail.vldb.org%2Fcidrdb%2Fpapers%2F2023%2Fp75-cong.pdf&usg=AOvVaw3jfxTNGi8LbWeFYDvt3EzW&opi=89978449">WarpGate</a> paper does not specify the embedding model used, but outlines three criteria to select one: (i) it should be pre-trained on tabular data, (ii) trained on large table corpora, and (iii) have reasonable inference time. Several models meet these requirements, including <a target="_blank" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiSwvOGiKSQAxVqSaQEHbvECRoQFnoECCAQAQ&url=https%3A%2F%2Faclanthology.org%2F2021.naacl-main.270%2F&usg=AOvVaw2Vz8HDhGN7bMSfHy4qcqAu&opi=89978449">TABBIE</a>, <a target="_blank" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwizgZqZiKSQAxX-NfsDHdj5L4sQFnoECCUQAQ&url=https%3A%2F%2Fwww.vldb.org%2Fpvldb%2Fvol14%2Fp307-deng.pdf&usg=AOvVaw1zKFLDnW8IMsile_LFi5lL&opi=89978449">TURL</a>, <a target="_blank" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwii2r-miKSQAxXhKvsDHa57KgoQFnoECBwQAQ&url=https%3A%2F%2Faclanthology.org%2F2020.acl-main.398%2F&usg=AOvVaw2rQhpcB6waaRHYFnjkZtMO&opi=89978449">TAPAS</a> and <a target="_blank" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjemKS2iKSQAxXLV6QEHfIYPEIQFnoECAsQAQ&url=https%3A%2F%2Farxiv.org%2Fabs%2F2005.08314&usg=AOvVaw1o_UYrgOwYN4_Mi1bMRHP_&opi=89978449">TABERT</a>. 
+    
+  </p>
+  <p class="text-justify">
+    We selected TABERT because, despite slightly slower inference, it serializes the table (rows and columns) together with associated natural language text (e.g., table descriptions, queries, or surrounding web text). This enables the model to connect column headers and cell values with linguistic meaning (e.g., “capital” ↔ “city name,” “GDP” ↔ “economy”). Additionally, it was trained on millions of real web tables aligned with natural language, providing embeddings that better capture the underlying properties of columns. We employed <a target="_blank" href="https://github.com/facebookresearch/TaBERT">TABERT-K3</a> with the default parameters.
+  </p>
+  <p class="text-justify">
+    Once embeddings are generated, we build the LSH index, which buckets embeddings using a family of locality-sensitive hash functions, creating natural neighbor groups. At inference, the query column is hashed, closest neighbors are retrieved, and similarity is computed only among them. We configured the LSH index with standard parameters: 16 hash hyperplanes, 8 tables and multiprobe activated. Similarity is assessed via cosine similarity, so embeddings are normalized before storage.
+  </p>
+
+  <h5>DeepJoin</h5>
+  <p class="text-justify">
+    We though about including  <a target="_blank" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjEpvOQiaSQAxVGhv0HHVLvAIAQFnoECBsQAQ&url=https%3A%2F%2Farxiv.org%2Fabs%2F2010.13273&usg=AOvVaw3dDbymmlR6sPufAHpSFvnY&opi=89978449">PEXESO</a> in the evaluation. However, PEXESO was one of the first fully embedding-based join discovery systems, and more modern approaches have since built on its ideas, rendering PEXESO somewhat obsolete. We therefore chose to include  <a target="_blank" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjV5qfJiaSQAxX7K_sDHR3qCfQQFnoECBkQAQ&url=https%3A%2F%2Fwww.vldb.org%2Fpvldb%2Fvol16%2Fp2458-dong.pdf&usg=AOvVaw20bpzweeDhmWiR75hVSOuA&opi=89978449">DeepJoin</a>, a natural evolution of PEXESO. While PEXESO introduced the embedding-based similarity join concept in data lakes, DeepJoin enhances it by leveraging pre-trained language models and fine-tuning to achieve higher accuracy, better generalization, and faster performance.
+  </p>
+  <p class="text-justify">
+    This also differentiates DeepJoin from WarpGate. WarpGate does not perform fine-tuning, as it simply uses table-specific embeddings generated by an embedding model. DeepJoin, in contrast, fine-tunes <a target="_blank" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwio4fmoiaSQAxXg8LsIHc83IFMQFnoECBwQAQ&url=https%3A%2F%2Farxiv.org%2Fabs%2F1908.10084&usg=AOvVaw2be-5z_tzlQmzLvmhE5ShL&opi=89978449">SBERT</a>, a generic embedding model, specifically for similarity search in join discovery tasks in the context of data lakes.
+  </p>
+  <p class="text-justify">
+    Since DeepJoin’s implementation is not publicly available, we contacted the authors and they provided a set of instructions to implement DeepJoin, which consists on five major steps (note that these need to be followed for every benchmark):
+    <ol class="text-justify">
+        <li>
+            <b>Obtain training data.</b> Given that we have to fine-tune the embeddings, we need the necessary training data to do so. This training data consists of pairs of columns that can be classified into two main groups: positive examples, that is, pairs of columns with “high” joinability and negative examples, that is, pairs of joins with “low” joinability. Following the recommendations of the authors, we assessed the join quality based on containment, with positive examples being those pairs of columns with a containment > 0.7. The negative examples were obtained using  in-batch negatives, that is, shuffling the pairs identified as positive examples to create uncorrelated joins. To thoroughly train the model, we obtain 5.000 positive examples and generate 15.000 negative examples, for each benchmark.
+        </li>
+        <b>Note</b>: This is the main bottleneck of DeepJoin, as it requires searching for “good” joins in each datalake, which implies that the larger and the more heterogeneous that a data lake is, the more time will be required to find these positive examples, increasing exponentially. The execution times stated for DeepJoin follow the previously stated configuration except for the TUS Big and Santos Big benchmarks due to the excessive amount of time required to find all of these joins. For the TUS Big dataset we collected just 1.000 positive examples and for Santos Big this was reduced to 100 positive examples.
+        <li>
+            <b>Prepare the training data.</b> The model that will generate the embeddings is a standard SBERT, which requires text. Hence, following the recommendations of the paper, for each column of the benchmark we generate its textual representation by concatenating: table name, column name: number of distinct values, maximum, minimum and average number of characters of the strings in the columns and the list of values themselves. An example of the resulting training value extracted from a column can be seen next (proceeding from the original DeepJoin paper):
+            <div style="text-align: center;">
+                <img src="img/baselines_details/deepjoin.png" alt="Boxplot and Violin plot for K distribution on the D3L benchmark" style="width: 100%; height: auto;">
+                <p style="font-size: 0.9em; margin-top: 5px;">
+                    <strong>Figure 1.</strong> Embedding mechanism of DeepJoin
+                </p>
+            </div>
+        </li>
+        <li>
+            <b>Train the bi-encoder model.</b> As stated, we will fine-tune the embeddings to perform join detection. Following the authors’ recommendations we employ SBERT as base model. More precisely, we use the <a target="_blank" href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">all-MiniLM-L6-v2</a> model (384-dimensional embeddings) with <a target="_blank" href="https://huggingface.co/blog/dragonkue/mitigating-false-negatives-in-retriever-training">mrnloss</a> as the loss function, which only works on binary labels. Hence, all positive examples are assigned the label “1” and all negative examples the label “0”. The original paper indicates the following values for the model’s hyperparameters, which we also adopt: batch size = 32, learning rate = 2e-5, warmup steps = 10.000, and weight decay rate = 0.01. As for the number of epochs, we tried to balance training time with accuracy, so we followed a dynamic approach that reduced the number of epochs from 20 to 5 as the size of the tables increased (from less than 5.000 to over 1.000.000).
+        </li>
+        <li>
+            <b>Generate embeddings.</b> After training, we generate the embeddings of all the columns in each benchmark. Batch size is fixed at 256.
+        </li>
+        <li>
+            <b>Store embeddings in index.</b> Similarly as with WarpGate, we store the embeddings in an index to perform quick retrieval and comparison. Here, though, instead of employing LSH index, the authors recommend to use a Hierarchical Navigable Small World (HNSW) index through the FAISS Python library that combines HNSW with IVF, PQ, and GPU acceleration. We employ the recommended configuration: hnsw_m = 32, hnsw_ef_search = 64, nlist = 1000, pq_m = 16 and pq_bits = 8. The similarity assessment is done via cosine similarity, so we normalize the embeddings before storing them. At query time, the index is traversed to retrieve the k nearest neighbors.
+
+        </li>
+
+
+    </ol>
+  </p>
+
+
+  
+
+  <p><a href="index.html">&larr; Back to main page</a></p>
+
+  <p style="font-size: small; color: #888;">Last updated: 2025/10/14</p>
+</div>
+
+</body>
+</html>

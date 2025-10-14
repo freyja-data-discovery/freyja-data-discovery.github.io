@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Freyja - Models</title>
+
+  <link rel="stylesheet" href="freyja.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/92dab46df1.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html"><span style="font-variant: small-caps; font-size: 1.5em;">Freyja</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html#people" style="margin-top: 8px; font-size: 1.2em;">People</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#publications" style="margin-top: 8px; font-size: 1.2em;">Publications</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#resources" style="margin-top: 8px; font-size: 1.2em;">Resources</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#reproducibility" style="margin-top: 8px; font-size: 1.2em;">Reproducibility</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#demo" style="margin-top: 8px; font-size: 1.2em;">Demo</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <br>
+
+  <h2 style="text-align: center;">Model development</h2>
+
+  <p style="font-size: 0.9em; color: grey;">
+    Link to <a target="_blank" href="https://github.com/dtim-upc/FREYJA/blob/main/experiments/notebooks/models.ipynb">notebook</a>. The notebook includes all the necessary code to create the data that we need and generate the plots. Nonetheless, an iteration of this data is already contained <a target="_blank" href="https://mydisk.cs.upc.edu/s/Scq7TmwPn7Q5q6X">here</a>, under the <i>k_justification</i> folder.
+  </p>
+
+    <p class="text-justify">
+      This notebooks presents a long process of <b>defining and testing several models</b> before selecting one of them to be part of the final system. We define two base models: with and without syntactic metrics (i.e datatype-related metrics), as syntactic metrics are very costly and removing them would speed up the creation of profiles considerably. From both of these base variants we generate two more models each (for a total of 6 models): with/without feature selection and <b>with/without <i>deep</i> feature selection</b>. The former refers to simply removing irrelevant model features ad hoc via an embedded method, whereas the latter refers to a three-stage feature selection process encompassing several filter, embedded and wrapper methodologies. 
+    </p>
+    <p class="text-justify">
+        Feature selection is a standard process in the field of data science and machine learning, as most features in a given dataset tend to be redundant and not useful. Hence, reducing the number of features to the most relevant reduces the complexity of the model and prevents overfitting to superfluous variables. Our initial set of features comprised 65 different metrics, so the likeliness that many of these features were irrelevant was high, hence the introduction of a feature selection process. Our goal is to keep only those very meaningful features that will surely maintain their relevance when obtained in external benchmarks.
+    </p>
+    <p class="text-justify">
+        To improve the robustness of our approach, we conducted a new, more thorough feature selection process based on several layers:
+        <ol class="text-justify">
+            <li>
+                We employ <b>filter methods</b> (extremely fast, based on relationships between the attributes) to remove clearly unhelpful features without requiring model intervention. This layer encompassed three substeps:
+                <ul class="text-justify">
+                    <li>
+                        Variability analysis: features with less than 1\% of value variability are removed, as such a low spectrum of values is highly unlikely to provide the model with useful patterns to make predictions.
+                    </li>
+                    <li>
+                        Redundancy analysis: we remove highly redundant features (above 90\% correlation).
+                    </li>
+                    <li>
+                        Relevancy analysis: we remove features that have less than 0.01 Mutual Information (MI) score w.r.t. the target variable, as the probability that such small correlations provide meaningful insight is very low.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                We used the inherent capacity of our ensemble-based models (i.e. <b>embedded approach</b>) to assign relevance scores to each feature based on how much each contributed to the prediction. Features under a given “relevancy threshold” were pruned. This provides a quick filter to remove features that the model deems to be not useful. More precisely, we remove those features whose relevance w.r.t. the model is less than 0.0001%
+            </li>
+            <li>
+                We employ a costly <b>wrapper method</b> to prune out more irrelevant features, now based on an exhaustive cross-validation task. This can be done at this stage because we removed more than half of the original features, so even though the overall wrapper process is still costly, it is feasible to compute. More precisely, we employed a Recursive Feature Elimination with Cross Validation (RFECV), with a 5-Fold cross-validation and removing a single feature each step.
+            </li>
+        </ol>
+    </p>
+
+    </p>
+    <p>
+      These models are instantiated with up to <b>17 base regressors</b>. We test all the possible combinations with our benchmark, selecting a subset of the best 20 models based on a conjoined analysis over RMSE, MAE and MedAE scores. This subset of models is tested on all the remaining benchmarks, in order to ensure that we have not commited a mistake and some of the underperforming models in the creation stage then outperforms the others when generalizing to other benchmarks. The results, however, are clear, and the <b>Gradient Boosting regressor, with no syntactic features and with a <i>deep</i> feature selection</b> process is the model that clearly performs best, both in our benchmark as well as the other's.
+    </p>
+
+    <p>
+        To better illustrate this, we took the best performing model from the training stage and tested on the external benchmarks. Note that the only benchmark in which the proposed model is not the best performing is in TUS Small, and it is by a small margin. On the other hand, in most other benchmarks the final model performs substantially better.
+    </p>
+
+
+    <h6>Top 5 Model Rankings Santos Small</h6>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Model</th>
+                <th>Avg Precision</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><strong>gradient_boosting_no_syntactic_fs_deep</strong></td>
+                <td>0.9675</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>gradient_boosting_all_fs_deep</td>
+                <td>0.9624</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>extra_trees_all</td>
+                <td>0.9577</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>gradient_boosting_all</td>
+                <td>0.9531</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>gradient_boosting_all_fs</td>
+                <td>0.9531</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <h6>Top 5 Model Rankings TUS Small</h6>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Model</th>
+                <th>Avg Precision</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>gradient_boosting_all_fs_deep</td>
+                <td>0.9010</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
+                <td>0.8939</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>gradient_boosting_all </td>
+                <td>0.8538</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>gradient_boosting_all_fs</td>
+                <td>0.8538</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>extra_trees_no_syntactic_fs_deep </td>
+                <td>0.8296</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h6>Top 5 Model Rankings TUS Big</h6>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Model</th>
+                <th>Avg Precision</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
+                <td>0.9718</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>catboost_all</td>
+                <td>0.9476</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>gradient_boosting_all_fs_deep  </td>
+                <td>0.9443</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>extra_trees_no_syntactic </td>
+                <td>0.9413</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>catboost_all_fs </td>
+                <td>0.9409</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h6>Top 5 Model Rankings D3L</h6>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Model</th>
+                <th>Avg Precision</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
+                <td>0.7994</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>extra_trees_no_syntactic_fs_deep </td>
+                <td>0.6658</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>extra_trees_no_syntactic </td>
+                <td>0.6101</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>extra_trees_no_syntactic_fs  </td>
+                <td>0.5872</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>catboost_no_syntactic_fs  </td>
+                <td>0.5505</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h6>Top 5 Model Rankings Freyja</h6>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Model</th>
+                <th>Avg Precision</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
+                <td>0.9504</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>extra_trees_no_syntactic_fs</td>
+                <td>0.9304</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>extra_trees_no_syntactic_fs_deep </td>
+                <td>0.9295</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>extra_trees_no_syntactic</td>
+                <td>0.9229</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>catboost_no_syntactic</td>
+                <td>0.9181</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h6>Top 5 Model Rankings OM CG</h6>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Model</th>
+                <th>Avg Precision</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
+                <td>0.5416</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>extra_trees_no_syntactic_fs</td>
+                <td>0.5055</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>xgboosting_no_syntactic </td>
+                <td>0.4891</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>extra_trees_no_syntactic</td>
+                <td>0.4866</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>extra_trees_no_syntactic_fs_deep</td>
+                <td>0.4770</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h6>Top 5 Model Rankings OM CR</h6>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Model</th>
+                <th>Avg Precision</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
+                <td>0.5657</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>extra_trees_no_syntactic_fs</td>
+                <td>0.5167</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>extra_trees_no_syntactic_fs_deep </td>
+                <td>0.5036</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>extra_trees_no_syntactic</td>
+                <td>0.5002</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>catboost_no_syntactic </td>
+                <td>0.4607</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+
+  <p><a href="index.html">&larr; Back to main page</a></p>
+
+  <p style="font-size: small; color: #888;">Last updated: 2025/10/14</p>
+</div>
+
+</body>
+</html>
