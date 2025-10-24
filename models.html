@@ -57,10 +57,10 @@
                 We employ <b>filter methods</b> (extremely fast, based on relationships between the attributes) to remove clearly unhelpful features without requiring model intervention. This layer encompassed three substeps:
                 <ul class="text-justify">
                     <li>
-                        Variability analysis: features with less than 1\% of value variability are removed, as such a low spectrum of values is highly unlikely to provide the model with useful patterns to make predictions.
+                        Variability analysis: features with less than 1% of value variability are removed, as such a low spectrum of values is highly unlikely to provide the model with useful patterns to make predictions.
                     </li>
                     <li>
-                        Redundancy analysis: we remove highly redundant features (above 90\% correlation).
+                        Redundancy analysis: we remove highly redundant features (above 90% correlation).
                     </li>
                     <li>
                         Relevancy analysis: we remove features that have less than 0.01 Mutual Information (MI) score w.r.t. the target variable, as the probability that such small correlations provide meaningful insight is very low.
