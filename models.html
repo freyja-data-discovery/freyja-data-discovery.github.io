@@ -45,7 +45,14 @@
   </p>
 
     <p class="text-justify">
-      This notebooks presents a long process of <b>defining and testing several models</b> before selecting one of them to be part of the final system. We define two base models: with and without syntactic metrics (i.e datatype-related metrics), as syntactic metrics are very costly and removing them would speed up the creation of profiles considerably. From both of these base variants we generate two more models each (for a total of 6 models): with/without feature selection and <b>with/without <i>deep</i> feature selection</b>. The former refers to simply removing irrelevant model features ad hoc via an embedded method, whereas the latter refers to a three-stage feature selection process encompassing several filter, embedded and wrapper methodologies. 
+      This notebooks presents a long process of <b>defining and testing several models</b> before selecting one of them to be part of the final system. We define four base models: 
+      <ol>
+        <li><b>All metrics</b> (<i>all</i>). This model contains all the original metrics of the profiles (over 60), likely to overfit and contain a lot of redundancy and unnecessary information</li>
+        <li><b>All metrics + lightweight feature selection</b> (<i>all_fs_simple</i>). We apply a simple feature selection process to remove irrelevant model features ad hoc via an embedded method. The goal is to just remove those features that are clearly redundant without taking too much time and not altering the core of the model.</li>
+        <li><b>All metrics + in-depth feature selection</b> (<i>all_fs_deep</i>). For this model we test a multi-layer (several filter, wrapper and embedded tasks) and aggresive feature selection process, whose goal is to obtain a far superior subset of metrics. The details of the feature selection are described in the following paragraph.</li>
+        <li><b>Custom set of metrics</b> (<i>custom</i>). For the final model we select a custom subset of metrics, according to previous experimentation.</li>
+      </ol>
+    
     </p>
     <p class="text-justify">
         Feature selection is a standard process in the field of data science and machine learning, as most features in a given dataset tend to be redundant and not useful. Hence, reducing the number of features to the most relevant reduces the complexity of the model and prevents overfitting to superfluous variables. Our initial set of features comprised 65 different metrics, so the likeliness that many of these features were irrelevant was high, hence the introduction of a feature selection process. Our goal is to keep only those very meaningful features that will surely maintain their relevance when obtained in external benchmarks.
@@ -78,11 +85,11 @@
 
     </p>
     <p>
-      These models are instantiated with up to <b>17 base regressors</b>. We test all the possible combinations with our benchmark, selecting a subset of the best 20 models based on a conjoined analysis over RMSE, MAE and MedAE scores. This subset of models is tested on all the remaining benchmarks, in order to ensure that we have not commited a mistake and some of the underperforming models in the creation stage then outperforms the others when generalizing to other benchmarks. The results, however, are clear, and the <b>Gradient Boosting regressor, with no syntactic features and with a <i>deep</i> feature selection</b> process is the model that clearly performs best, both in our benchmark as well as the other's.
+      These models are instantiated with up to <b>17 base regressors</b>. We test all the possible combinations with our benchmark, selecting a subset of the best 20 models based on a conjoined analysis over RMSE, MAE and MedAE scores. This subset of models is tested on all the remaining benchmarks, in order to ensure that we have not commited a mistake and some of the underperforming models in the creation stage then outperforms the others when generalizing to other benchmarks. The results, however, are clear, and the <b>Gradient Boosting regressor, with custom features</b> is the model that clearly performs best, both in our benchmark as well as the other's.
     </p>
 
     <p>
-        To better illustrate this, we took the best performing model from the training stage and tested on the external benchmarks. Note that the only benchmark in which the proposed model is not the best performing is in TUS Small, and it is by a small margin. On the other hand, in most other benchmarks the final model performs substantially better.
+        To better illustrate this, we took the best performing model from the training stage and tested on the external benchmarks.
     </p>
 
 
@@ -96,31 +103,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td><strong>gradient_boosting_no_syntactic_fs_deep</strong></td>
-                <td>0.9675</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>gradient_boosting_all_fs_deep</td>
-                <td>0.9624</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>extra_trees_all</td>
-                <td>0.9577</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>gradient_boosting_all</td>
-                <td>0.9531</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>gradient_boosting_all_fs</td>
-                <td>0.9531</td>
-            </tr>
+            <tr><td>1</td><td>gradient_boosting_custom</td><td>0.9586</td></tr>
+            <tr><td>2</td><td>gradient_boosting_all</td><td>0.9490</td></tr>
+            <tr><td>3</td><td>gradient_boosting_all_fs_simple</td><td>0.9443</td></tr>
+            <tr><td>4</td><td>extra_trees_all</td><td>0.9386</td></tr>
+            <tr><td>5</td><td>extra_trees_all_fs_simple</td><td>0.9369</td></tr>
         </tbody>
     </table>
 
@@ -135,31 +122,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>gradient_boosting_all_fs_deep</td>
-                <td>0.9010</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
-                <td>0.8939</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>gradient_boosting_all </td>
-                <td>0.8538</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>gradient_boosting_all_fs</td>
-                <td>0.8538</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>extra_trees_no_syntactic_fs_deep </td>
-                <td>0.8296</td>
-            </tr>
+            <tr><td>1</td><td><b>gradient_boosting_custom</b></td><td>0.8875</td></tr>
+            <tr><td>2</td><td>catboost_all_fs_deep</td><td>0.8676</td></tr>
+            <tr><td>3</td><td>catboost_custom</td><td>0.8425</td></tr>
+            <tr><td>4</td><td>gradient_boosting_all</td><td>0.8356</td></tr>
+            <tr><td>5</td><td>catboost_all_fs_simple</td><td>0.8272</td></tr>
         </tbody>
     </table>
     <br>
@@ -173,31 +140,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
-                <td>0.9718</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>catboost_all</td>
-                <td>0.9476</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>gradient_boosting_all_fs_deep  </td>
-                <td>0.9443</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>extra_trees_no_syntactic </td>
-                <td>0.9413</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>catboost_all_fs </td>
-                <td>0.9409</td>
-            </tr>
+            <tr><td>1</td><td><b>gradient_boosting_custom</b></td><td>0.9267</td></tr>
+            <tr><td>2</td><td>gradient_boosting_all</td><td>0.9155</td></tr>
+            <tr><td>3</td><td>gradient_boosting_all_fs_simple</td><td>0.9143</td></tr>
+            <tr><td>4</td><td>extra_trees_all</td><td>0.9012</td></tr>
+            <tr><td>5</td><td>extra_trees_all_fs_deep</td><td>0.9011</td></tr>
         </tbody>
     </table>
     <br>
@@ -211,31 +158,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
-                <td>0.7994</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>extra_trees_no_syntactic_fs_deep </td>
-                <td>0.6658</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>extra_trees_no_syntactic </td>
-                <td>0.6101</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>extra_trees_no_syntactic_fs  </td>
-                <td>0.5872</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>catboost_no_syntactic_fs  </td>
-                <td>0.5505</td>
-            </tr>
+            <tr><td>1</td><td><b>gradient_boosting_custom</b></td><td>0.7788</td></tr>
+            <tr><td>2</td><td>catboost_custom</td><td>0.6327</td></tr>
+            <tr><td>3</td><td>catboost_all_fs_deep</td><td>0.6283</td></tr>
+            <tr><td>4</td><td>xgboosting_custom</td><td>0.6259</td></tr>
+            <tr><td>5</td><td>gradient_boosting_all_fs_simple</td><td>0.6054</td></tr>
         </tbody>
     </table>
 
@@ -249,31 +176,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
-                <td>0.9504</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>extra_trees_no_syntactic_fs</td>
-                <td>0.9304</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>extra_trees_no_syntactic_fs_deep </td>
-                <td>0.9295</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>extra_trees_no_syntactic</td>
-                <td>0.9229</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>catboost_no_syntactic</td>
-                <td>0.9181</td>
-            </tr>
+            <tr><td>1</td><td><b>gradient_boosting_custom</b></td><td>0.9624</td></tr>
+            <tr><td>2</td><td>gradient_boosting_all</td><td>0.9387</td></tr>
+            <tr><td>3</td><td>gradient_boosting_all_fs_simple</td><td>0.9363</td></tr>
+            <tr><td>4</td><td>gradient_boosting_all_fs_deep</td><td>0.9213</td></tr>
+            <tr><td>5</td><td>xgboosting_custom</td><td>0.8898</td></tr>
         </tbody>
     </table>
 
@@ -287,31 +194,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
-                <td>0.5416</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>extra_trees_no_syntactic_fs</td>
-                <td>0.5055</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>xgboosting_no_syntactic </td>
-                <td>0.4891</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>extra_trees_no_syntactic</td>
-                <td>0.4866</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>extra_trees_no_syntactic_fs_deep</td>
-                <td>0.4770</td>
-            </tr>
+            <tr><td>1</td><td><b>gradient_boosting_custom</b></td><td>0.5763</td></tr>
+            <tr><td>2</td><td>catboost_custom</td><td>0.5552</td></tr>
+            <tr><td>3</td><td>extra_trees_all_fs_deep</td><td>0.5526</td></tr>
+            <tr><td>4</td><td>extra_trees_all</td><td>0.5483</td></tr>
+            <tr><td>5</td><td>extra_trees_custom</td><td>0.5448</td></tr>
         </tbody>
     </table>
 
@@ -325,41 +212,172 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td><b>gradient_boosting_no_syntactic_fs_deep</b></td>
-                <td>0.5657</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>extra_trees_no_syntactic_fs</td>
-                <td>0.5167</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>extra_trees_no_syntactic_fs_deep </td>
-                <td>0.5036</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>extra_trees_no_syntactic</td>
-                <td>0.5002</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>catboost_no_syntactic </td>
-                <td>0.4607</td>
-            </tr>
+            <tr><td>1</td><td><b>gradient_boosting_custom</b></td><td>0.5996</td></tr>
+            <tr><td>2</td><td>extra_trees_all</td><td>0.5490</td></tr>
+            <tr><td>3</td><td>extra_trees_all_fs_simple</td><td>0.5444</td></tr>
+            <tr><td>4</td><td>gradient_boosting_all_fs_simple</td><td>0.5439</td></tr>
+            <tr><td>5</td><td>gradient_boosting_all</td><td>0.5436</td></tr>
         </tbody>
     </table>
 
     <hr>
 
+    <p>
+      To squeeze the best performance out of the final model, we can fine-tune it to obtain a better set of hyperparameters. We will generate 48 models from the initial gradient boosting, following a grid search over relevant parameters. Each model will be evaluated on each of the seven benchmarks, and we will obtain the best overall model (same as before).
+    </p>
+
+    <h6>Top 5 Model Rankings Santos Small</h6>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Model</th>
+                    <th>Avg Precision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>gradient_boosting_ne25_lr0.1_md3_ss1.0_msl1</td><td>0.9719</td></tr>
+                <tr><td>2</td><td>gradient_boosting_ne50_lr0.05_md3_ss1.0_msl1</td><td>0.9714</td></tr>
+                <tr><td>3</td><td>gradient_boosting_ne50_lr0.05_md3_ss1.0_msl10</td><td>0.9712</td></tr>
+                <tr><td>4</td><td>gradient_boosting_ne25_lr0.1_md3_ss1.0_msl10</td><td>0.9706</td></tr>
+                <tr><td>5</td><td>gradient_boosting_ne50_lr0.05_md3_ss0.8_msl1</td><td>0.9659</td></tr>
+            </tbody>
+        </table>
+
+        <h6>Top 5 Model Rankings TUS Small</h6>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Model</th>
+                    <th>Avg Precision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>gradient_boosting_ne50_lr0.1_md3_ss0.8_msl10</td><td>0.8958</td></tr>
+                <tr><td>2</td><td>gradient_boosting_ne50_lr0.05_md5_ss0.8_msl1</td><td>0.8950</td></tr>
+                <tr><td>3</td><td>gradient_boosting_ne50_lr0.05_md5_ss0.8_msl10</td><td>0.8944</td></tr>
+                <tr><td>4</td><td>gradient_boosting_ne100_lr0.1_md3_ss0.8_msl10</td><td>0.8936</td></tr>
+                <tr><td>5</td><td>gradient_boosting_ne25_lr0.1_md5_ss1.0_msl1</td><td>0.8936</td></tr>
+            </tbody>
+        </table>
+
+        <h6>Top 5 Model Rankings TUS Big</h6>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Model</th>
+                    <th>Avg Precision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>gradient_boosting_ne25_lr0.1_md3_ss1.0_msl10</td><td>0.9381</td></tr>
+                <tr><td>2</td><td>gradient_boosting_ne50_lr0.1_md3_ss0.8_msl10</td><td>0.9358</td></tr>
+                <tr><td>3</td><td>gradient_boosting_ne50_lr0.05_md3_ss1.0_msl10</td><td>0.9351</td></tr>
+                <tr><td>4</td><td>gradient_boosting_ne25_lr0.1_md3_ss1.0_msl1</td><td>0.9350</td></tr>
+                <tr><td>5</td><td>gradient_boosting_ne50_lr0.05_md3_ss1.0_msl1</td><td>0.9326</td></tr>
+            </tbody>
+        </table>
+
+        <h6>Top 5 Model Rankings D3L</h6>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Model</th>
+                    <th>Avg Precision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>gradient_boosting_ne50_lr0.1_md3_ss0.8_msl10</td><td>0.8005</td></tr>
+                <tr><td>2</td><td>gradient_boosting_ne50_lr0.05_md5_ss0.8_msl1</td><td>0.7993</td></tr>
+                <tr><td>3</td><td>gradient_boosting_ne100_lr0.05_md3_ss0.8_msl10</td><td>0.7980</td></tr>
+                <tr><td>4</td><td>gradient_boosting_ne50_lr0.1_md3_ss1.0_msl10</td><td>0.7930</td></tr>
+                <tr><td>5</td><td>gradient_boosting_ne100_lr0.05_md3_ss1.0_msl10</td><td>0.7843</td></tr>
+            </tbody>
+        </table>
+
+        <h6>Top 5 Model Rankings Freyja</h6>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Model</th>
+                    <th>Avg Precision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>gradient_boosting_ne50_lr0.1_md3_ss1.0_msl1</td><td>0.9624</td></tr>
+                <tr><td>2</td><td>gradient_boosting_ne25_lr0.1_md3_ss0.8_msl1</td><td>0.9623</td></tr>
+                <tr><td>3</td><td>gradient_boosting_ne25_lr0.1_md3_ss1.0_msl1</td><td>0.9578</td></tr>
+                <tr><td>4</td><td>gradient_boosting_ne100_lr0.05_md3_ss0.8_msl1</td><td>0.9576</td></tr>
+                <tr><td>5</td><td>gradient_boosting_ne100_lr0.05_md3_ss1.0_msl10</td><td>0.9570</td></tr>
+            </tbody>
+        </table>
+
+        <h6>Top 5 Model Rankings OM CG</h6>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Model</th>
+                    <th>Avg Precision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>gradient_boosting_ne100_lr0.05_md3_ss0.8_msl10</td><td>0.6111</td></tr>
+                <tr><td>2</td><td>gradient_boosting_ne100_lr0.1_md3_ss0.8_msl10</td><td>0.6018</td></tr>
+                <tr><td>3</td><td>gradient_boosting_ne50_lr0.1_md3_ss0.8_msl1</td><td>0.5990</td></tr>
+                <tr><td>4</td><td>gradient_boosting_ne100_lr0.1_md3_ss1.0_msl10</td><td>0.5947</td></tr>
+                <tr><td>5</td><td>gradient_boosting_ne100_lr0.1_md3_ss1.0_msl1</td><td>0.5942</td></tr>
+            </tbody>
+        </table>
+
+        <h6>Top 5 Model Rankings OM CR</h6>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Model</th>
+                    <th>Avg Precision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>gradient_boosting_ne100_lr0.05_md3_ss1.0_msl10</td><td>0.6089</td></tr>
+                <tr><td>2</td><td>gradient_boosting_ne100_lr0.05_md3_ss0.8_msl1</td><td>0.6034</td></tr>
+                <tr><td>3</td><td>gradient_boosting_ne50_lr0.05_md3_ss1.0_msl10</td><td>0.5997</td></tr>
+                <tr><td>4</td><td>gradient_boosting_ne50_lr0.1_md3_ss1.0_msl1</td><td>0.5996</td></tr>
+                <tr><td>5</td><td>gradient_boosting_ne25_lr0.1_md3_ss1.0_msl10</td><td>0.5994</td></tr>
+            </tbody>
+        </table>
+        <br><br>
+
+        The three best overall models are:
+
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Model</th>
+                    <th>Avg Precision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>gradient_boosting_ne100_lr0.05_md3_ss0.8_msl10</td><td>0.8176</td></tr>
+                <tr><td>2</td><td>gradient_boosting_ne100_lr0.05_md3_ss1.0_msl10</td><td>0.8163</td></tr>
+                <tr><td>3</td><td>gradient_boosting_ne50_lr0.1_md3_ss0.8_msl10</td><td>0.8157</td></tr>
+            </tbody>
+        </table>
+
+
 
   <p><a href="index.html">&larr; Back to main page</a></p>
 
-  <p style="font-size: small; color: #888;">Last updated: 2025/10/14</p>
+  <p style="font-size: small; color: #888;">last updated: 2026/01/07</p>
 </div>
+
+
 
 </body>
 </html>

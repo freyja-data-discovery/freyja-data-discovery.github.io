@@ -219,6 +219,15 @@
       <ul class="list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <div>
+            Freyja: Efficient Join Discovery in Data Lakes <span class="badge badge-primary"> Pre-print</span>
+          </div>
+          <div>
+            <a href="https://arxiv.org/html/2412.06637"><i class="far fa-file-pdf fa-2x"></i></a>
+            <a href="https://www.recercat.cat/handle/2117/409838"><i class="fas fa-info-circle fa-2x"></i></a>
+          </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
             Discovery of semantic non-syntactic joins <span class="badge badge-primary"> Short paper published in EDBT
               2024</span>
           </div>
@@ -310,6 +319,7 @@
             href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/deepjoin">DeepJoin</a> and <a target="_blank"
             href="https://github.com/dtim-upc/FREYJA/tree/main/experiments/warpgate">WarpGate</a></li>
       </ul>
+      The main README contains highly detailed instructions to execute <span style="font-variant: small-caps;">Freyja</span>'s code. Our system is built entirely on Python, and is not dependedant on hefty libraries or external systems. Moreover, we provide an API to encapsulate its main functionalities, facilititating  <span style="font-variant: small-caps;">Freyja</span>'s execution.
       </p>
 
       <h5><span style="font-variant: small-caps;">Freyja</span>'s benchmark</h5>
@@ -351,7 +361,7 @@
           href="http://db-reproducibility.seas.harvard.edu/">[2]</a>. <b>Reproducing the results</b> described in the
         paper can be done by following the instructions provided in the Github repository, indicating the desired data
         lake to test. We have included the specific <a target="_blank"
-          href="https://github.com/dtim-upc/FREYJA/blob/main/model/evaluate_benchmark_performance.py">script</a> used to
+          href="https://github.com/dtim-upc/FREYJA/blob/main/app/core/model/evaluate_benchmark_performance.py">script</a> used to
         obtain the P@K and R@K results displayed in the paper.
       </p>
       <h5>Benchmarks, baselines and ground truths</h5>
@@ -387,7 +397,7 @@
       <p class="text-justify">
         To further facilitate the reproduction of our results, we <b>provide all the</b> <a target="_blank"
           href="https://github.com/dtim-upc/FREYJA/tree/main/ground_truths">ground truths</a> employed to evaluate the
-        benchmarks. The D3L and TUS Big ground truths were exceedingly big, so we removed unnecessary columns from the
+        benchmarks, alongisde the necessary configurations to execute them. The D3L and TUS Big ground truths were exceedingly big, so we removed unnecessary columns from the
         original version. Both OmniMatch ground truths were not adapted for our evaluation method, so we reestructured
         them and selected a big enough subset. In all cases, we unified the header names in order to streamline the
         execution of some of the processes.
@@ -461,7 +471,7 @@
         </iframe>
       </center>
       <br><br>
-      <p style="font-size: small; color: #888;">Last updated: 2025/10/14</p>
+      <p style="font-size: small; color: #888;">last updated: 2026/01/07</p>
     </div>
     <script>
       $(document).ready(function () {
